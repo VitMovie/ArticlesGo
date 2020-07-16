@@ -4,10 +4,19 @@ import (
 	"fmt"
 )
 
+const (
+	username = "root"
+	password  = "root"
+	host = "localhost"
+	dbname = "confluence"
+)
+
 func Example() {
+	// Connect into db
+	Connect(username, password, host, dbname)
 
 	// Create article
-	a := &Article{Title: "go article", Endpoint: "/api/go_article"}
+	a := &Article{Title: "go article", ConfluenceID: 22}
 	_, err := a.CreateArticle()
 	if err != nil {
 		panic(err)

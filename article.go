@@ -5,9 +5,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-
 func init() {
-	Connect()
 	db = GetDB()
 	db.AutoMigrate(&Article{})
 }
@@ -16,7 +14,7 @@ func init() {
 type Article struct {
 	gorm.Model
 	Title    string
-	Endpoint string
+	ConfluenceID int
 }
 
 func (a *Article) CreateArticle() (*Article, error) {
@@ -49,7 +47,10 @@ func (a *Article) DeleteArticle(id int64) Article {
 	return article
 }
 
-//func (a *Article) Update(id int64, title string, endpoint string) *Article {
-//
-//}
-
+func (a *Article) GetArticleByConfluenceId(id int64) (*Article, error) {
+	var article Article
+	if err := db.Where("ConfluenceID = ?", id).Find(&article).Error; err != nil {
+		return nil, err
+	}
+	return &article, nil
+}
