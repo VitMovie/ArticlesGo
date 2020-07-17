@@ -1,7 +1,8 @@
-package goarticles
+package main
 
 import (
 	"fmt"
+	"github.com/vitmovie/articlesgo"
 )
 
 const (
@@ -11,19 +12,21 @@ const (
 	dbname = "confluence"
 )
 
-func Example() {
+func main() {
 	// Connect into db
-	Connect(username, password, host, dbname)
+	db := goarticles.NewDatabase(username, password, host, dbname)
+	// Migrate
+	db.Connection.AutoMigrate(&goarticles.Article{})
 
 	// Create article
-	a := &Article{Title: "go article", ConfluenceID: 22}
+	a := &goarticles.Article{Title: "go article", ConfluenceID: 22, DB: db}
 	_, err := a.CreateArticle()
 	if err != nil {
 		panic(err)
 	}
 	id := a.ID
 
-	a = &Article{}
+	a = &goarticles.Article{}
 
 	// Get Article
 	article, err := a.GetArticleById(int64(id))
