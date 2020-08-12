@@ -26,7 +26,7 @@ func main() {
 	}
 	id := a.ID
 
-	a = &goarticles.Article{}
+	a = &goarticles.Article{DB: db}
 
 	// Get Article
 	article, err := a.GetArticleById(int64(id))
