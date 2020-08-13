@@ -7,7 +7,7 @@ import (
 
 const (
 	username = "root"
-	password  = "root"
+	password  = "password"
 	host = "localhost"
 	dbname = "confluence"
 )
@@ -19,7 +19,7 @@ func main() {
 	db.Connection.AutoMigrate(&articlesgo.Article{})
 
 	// Create article
-	a := &articlesgo.Article{Title: "go article", ConfluenceID: 22, DB: db}
+	a := &articlesgo.Article{Title: "article", ConfluenceID: 22, Url: "http://confluence.net", DB: db}
 	_, err := a.CreateArticle()
 	if err != nil {
 		panic(err)

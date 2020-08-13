@@ -10,6 +10,7 @@ type Article struct {
 	gorm.Model
 	Title        string
 	ConfluenceID int
+	Url          string
 	DB           *Database `gorm:"-"`
 }
 
